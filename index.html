@@ -16,12 +16,12 @@
   </style>
 </head>
 <body class="bg-gray-200 text-gray-900 min-h-screen flex justify-center items-center">
-  <div class="bg-gray-50 border border-gray-100 p-12 rounded flex justify-center items-center flex-col max-w-[768px] mx-4 md:mx-0 drop-shadow">
+  <div class="bg-gray-50 border border-gray-100 p-12 rounded flex justify-center items-center flex-col max-w-[768px] mx-4 my-8 md:mx-0 drop-shadow">
     <div class="flex gap-4 justify-between items-center flex-col mb-12">
       <h1 class="text-4xl bold text-center">Certidão de namoro</h1>
-      <span class="text-sm">04/07/2022</span>
+      <span class="text-sm" id="birthday">04/07/2022</span>
 
-      <img src="cats.png" alt="">
+      <img src="public/cats.png" alt="">
     </div>
 
     <p class="text-lg mb-16">
@@ -30,17 +30,60 @@
       precisa saltar para fora e se revelar em toda magnitude.
     </p>
 
-    <div class="flex flex-col sm:flex-row gap-8 sm:gap-0 justify-between items-center w-full sm:px-12">
+    <div class="flex flex-col sm:flex-row gap-8 sm:gap-0 justify-between items-center w-full sm:px-12 mb-12">
       <div class="flex flex-col items-center justify-center">
+        <img class="w-16 mb-4" src="public/digital.png" alt="">
+
         <strong class="underline text-sm">Francielly Oliveira de Souza</strong>
-        <span>Namorada</span>
+        <span>namorada</span>
       </div>
 
       <div class="flex flex-col items-center justify-center">
+        <img class="w-16 mb-4" src="public/digital.png" alt="">
+
         <strong class="underline text-sm">João A. L. Gonçalves</strong>
-        <span>Namorado</span>
+        <span>namorado</span>
       </div>
     </div>
+
+    <p class="text-center">Um compromisso para a vida toda.</p>
+
+    <script>
+      function getRelativeDateText() {
+        const birthdaySpanHtml = document.getElementById("birthday");
+        const date = new Date('2022-07-04T00:00:00Z');
+        const now = new Date();
+
+        const diffInMilliseconds = now - date;
+
+        const millisecondsInMonth = 30 * 24 * 60 * 60 * 1000;
+        const millisecondsInYear = 12 * millisecondsInMonth;
+
+        const diffInYears = Math.floor(diffInMilliseconds / millisecondsInYear);
+        const diffInMonths = Math.floor((diffInMilliseconds % millisecondsInYear) / millisecondsInMonth);
+
+        let result = '';
+
+        if (diffInYears > 0) {
+            result += `${diffInYears} ${diffInYears === 1 ? 'ano' : 'anos'}`;
+        }
+
+        if (diffInMonths > 0) {
+            if (result) result += ' e ';
+            result += `${diffInMonths} ${diffInMonths === 1 ? 'mês' : 'meses'}`;
+        }
+
+        if (!result) {
+            result = 'menos de um mês';
+        }
+
+        const text = `${birthdaySpanHtml.innerText} - ${result}`
+        
+        birthdaySpanHtml.innerText = text
+      }
+
+      getRelativeDateText()
+    </script>
   </div>
 </body>
 </html>
